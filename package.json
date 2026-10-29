@@ -1,0 +1,16 @@
+{
+  "name": "nomad-shibhu-trails",
+  "version": "1.0.0",
+  "description": "Nomad Shibhu Trails \u2014 Uttarakhand travel itineraries",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@fontsource-variable/plus-jakarta-sans": "^5.1.1",
+    "sharp": "^0.33.5"
+  },
+  "private": true,
+  "type": "module"
+}

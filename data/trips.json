@@ -1,0 +1,489 @@
+[
+  {
+    "id": "tungnath",
+    "title": "Tungnath & Chandrashila",
+    "route": "Rishikesh → Chopta → Tungnath → Chandrashila",
+    "region": "Rudraprayag",
+    "tags": [
+      "Panch Kedar",
+      "Treks"
+    ],
+    "pk": 2,
+    "altitude": 3680,
+    "days": 3,
+    "trek": "3.5 km",
+    "difficulty": "Easy–Moderate",
+    "season": "Apr–Jun · Sep–Nov",
+    "start": "Rishikesh",
+    "style": "dawn",
+    "summary": "The highest Shiva temple in the world, and a short climb on to Chandrashila for a sunrise over Chaukhamba, Nanda Devi and Trishul.",
+    "story": "",
+    "reel": "",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Chopta",
+        "x": "Meet in Rishikesh in the morning. Drive about 200 km via Devprayag, Rudraprayag and Ukhimath. Stay in Chopta's camps or homestays."
+      },
+      {
+        "d": "Day 2",
+        "t": "Sunrise trek to Chandrashila",
+        "x": "Start before dawn, reach Tungnath (3.5 km), continue 1.5 km to Chandrashila for sunrise, then come down for darshan. Rest in Chopta."
+      },
+      {
+        "d": "Day 3",
+        "t": "Chopta to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by evening."
+      }
+    ],
+    "tips": [
+      "Leave Chopta by 4:30 am if you want the Chandrashila sunrise.",
+      "In winter the temple closes and the deity moves to Makkumath."
+    ],
+    "media": []
+  },
+  {
+    "id": "kedarnath",
+    "title": "Kedarnath",
+    "route": "Rishikesh → Sonprayag → Gaurikund → Kedarnath",
+    "region": "Rudraprayag",
+    "tags": [
+      "Panch Kedar",
+      "Char Dham",
+      "Treks"
+    ],
+    "pk": 1,
+    "altitude": 3583,
+    "days": 4,
+    "trek": "16 km",
+    "difficulty": "Moderate",
+    "season": "May–Jun · Sep–Oct",
+    "start": "Rishikesh",
+    "style": "day",
+    "summary": "The first and most visited of the Panch Kedar, set under the Kedarnath peaks at the head of the Mandakini valley.",
+    "story": "",
+    "reel": "",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Sonprayag",
+        "x": "Long drive along the Alaknanda and Mandakini. Stay in Sonprayag or Guptkashi."
+      },
+      {
+        "d": "Day 2",
+        "t": "Trek to Kedarnath",
+        "x": "Shared jeep to Gaurikund, then the 16 km trail up. Evening aarti at the temple."
+      },
+      {
+        "d": "Day 3",
+        "t": "Darshan and descent",
+        "x": "Early darshan, walk up to Bhairavnath temple, then trek back to Gaurikund. Stay in Sonprayag."
+      },
+      {
+        "d": "Day 4",
+        "t": "Sonprayag to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by evening."
+      }
+    ],
+    "tips": [
+      "Char Dham registration is required before you travel.",
+      "Start the trek early; afternoons often bring rain and crowded trails."
+    ],
+    "media": []
+  },
+  {
+    "id": "rudranath",
+    "title": "Rudranath",
+    "route": "Rishikesh → Gopeshwar → Sagar → Rudranath",
+    "region": "Chamoli",
+    "tags": [
+      "Panch Kedar",
+      "Treks"
+    ],
+    "pk": 3,
+    "altitude": 3600,
+    "days": 5,
+    "trek": "20 km",
+    "difficulty": "Difficult",
+    "season": "May–Jun · Sep–Oct",
+    "start": "Rishikesh",
+    "style": "mist",
+    "summary": "The toughest of the Panch Kedar: long climbs through oak forest and wide alpine meadows to a cave shrine where Shiva is worshipped as a face.",
+    "story": "",
+    "reel": "",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Gopeshwar",
+        "x": "Drive to Gopeshwar near Chamoli and rest."
+      },
+      {
+        "d": "Day 2",
+        "t": "Sagar to Panar Bugyal",
+        "x": "Steep climb through forest to the Panar meadows. Overnight in a basic hut or tent."
+      },
+      {
+        "d": "Day 3",
+        "t": "Panar to Rudranath",
+        "x": "Ridge walk past Pitradhar with big views of Nanda Devi and Trishul. Evening darshan."
+      },
+      {
+        "d": "Day 4",
+        "t": "Back to Sagar",
+        "x": "Long descent the same way. Stay in Gopeshwar."
+      },
+      {
+        "d": "Day 5",
+        "t": "Gopeshwar to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by evening."
+      }
+    ],
+    "tips": [
+      "Few shops on this route, so carry snacks and water purification.",
+      "Hire a local guide or porter from Sagar if it is your first high-altitude trek."
+    ],
+    "media": []
+  },
+  {
+    "id": "madhyamaheshwar",
+    "title": "Madhyamaheshwar",
+    "route": "Rishikesh → Ransi → Madhyamaheshwar",
+    "region": "Rudraprayag",
+    "tags": [
+      "Panch Kedar",
+      "Treks"
+    ],
+    "pk": 4,
+    "altitude": 3497,
+    "days": 4,
+    "trek": "16 km",
+    "difficulty": "Moderate",
+    "season": "May–Nov",
+    "start": "Rishikesh",
+    "style": "day",
+    "summary": "A quiet green trail through villages and forest to the temple of Shiva's navel, with Chaukhamba right above the meadow.",
+    "story": "",
+    "reel": "",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Ransi",
+        "x": "Drive via Rudraprayag and Ukhimath to the roadhead at Ransi."
+      },
+      {
+        "d": "Day 2",
+        "t": "Ransi to Madhyamaheshwar",
+        "x": "Down to Gaundar village, then a steady climb to the temple meadow."
+      },
+      {
+        "d": "Day 3",
+        "t": "Budha Madhyamaheshwar and descent",
+        "x": "Walk about 2 km up to Budha Madhyamaheshwar for Chaukhamba views, then trek down to Ransi."
+      },
+      {
+        "d": "Day 4",
+        "t": "Ransi to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by evening."
+      }
+    ],
+    "tips": [
+      "Homestays at Gaundar and near the temple are simple; book ahead in peak season."
+    ],
+    "media": []
+  },
+  {
+    "id": "kalpeshwar",
+    "title": "Kalpeshwar",
+    "route": "Rishikesh → Helang → Urgam → Kalpeshwar",
+    "region": "Chamoli",
+    "tags": [
+      "Panch Kedar"
+    ],
+    "pk": 5,
+    "altitude": 2200,
+    "days": 3,
+    "trek": "Short walk",
+    "difficulty": "Easy",
+    "season": "All year",
+    "start": "Rishikesh",
+    "style": "mist",
+    "summary": "The fifth Kedar, a rock-cave shrine in the Urgam valley where Shiva's matted hair is worshipped. The only Panch Kedar open all year.",
+    "story": "",
+    "reel": "",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Urgam valley",
+        "x": "Drive up the Alaknanda to Helang, then turn into the Urgam valley. Stay in a village homestay."
+      },
+      {
+        "d": "Day 2",
+        "t": "Kalpeshwar",
+        "x": "Short walk from Devgram to the cave temple. Spend the rest of the day in the valley."
+      },
+      {
+        "d": "Day 3",
+        "t": "Urgam to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by evening."
+      }
+    ],
+    "tips": [
+      "Easy to add to a Badrinath or Valley of Flowers trip since Helang is on the same highway."
+    ],
+    "media": []
+  },
+  {
+    "id": "badrinath",
+    "title": "Badrinath & Mana",
+    "route": "Rishikesh → Joshimath → Badrinath → Mana",
+    "region": "Chamoli",
+    "tags": [
+      "Char Dham"
+    ],
+    "altitude": 3300,
+    "days": 3,
+    "trek": "Road trip",
+    "difficulty": "Easy",
+    "season": "May–Nov",
+    "start": "Rishikesh",
+    "style": "dawn",
+    "summary": "The Char Dham shrine of Vishnu on the Alaknanda between the Nar and Narayan ranges, with Mana village a few kilometres on.",
+    "story": "",
+    "reel": "",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Joshimath",
+        "x": "Drive past the five prayags along the Alaknanda."
+      },
+      {
+        "d": "Day 2",
+        "t": "Badrinath and Mana",
+        "x": "Dip in Tapt Kund, darshan, then Mana village, Bhim Pul and the Saraswati river. Stay in Joshimath."
+      },
+      {
+        "d": "Day 3",
+        "t": "Joshimath to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by evening."
+      }
+    ],
+    "tips": [
+      "Char Dham registration is required before you travel."
+    ],
+    "media": []
+  },
+  {
+    "id": "auli",
+    "title": "Auli & Gorson Bugyal",
+    "route": "Rishikesh → Joshimath → Auli → Gorson Bugyal",
+    "region": "Chamoli",
+    "tags": [
+      "Treks"
+    ],
+    "altitude": 3050,
+    "days": 3,
+    "trek": "3 km",
+    "difficulty": "Easy",
+    "season": "Dec–Mar (snow) · Apr–Jun",
+    "start": "Rishikesh",
+    "style": "day",
+    "summary": "Snow slopes in winter and open meadows in summer, with a walk up to Gorson Bugyal and Nanda Devi across the valley.",
+    "story": "",
+    "reel": "",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Auli",
+        "x": "Drive up the Alaknanda via Rudraprayag and Chamoli to Joshimath, then the last stretch up to Auli."
+      },
+      {
+        "d": "Day 2",
+        "t": "Auli and Gorson Bugyal",
+        "x": "Walk about 3 km through oak and conifer forest to the Gorson Bugyal meadow for views of Nanda Devi and Dronagiri. Back in Auli by afternoon."
+      },
+      {
+        "d": "Day 3",
+        "t": "Auli to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by evening."
+      }
+    ],
+    "tips": [
+      "Come in January or February for snow; ski gear can be hired in Auli.",
+      "Easy to pair with Badrinath or Valley of Flowers, which are on the same highway past Joshimath."
+    ],
+    "media": []
+  },
+  {
+    "id": "valley-of-flowers",
+    "title": "Valley of Flowers",
+    "route": "Rishikesh → Govindghat → Ghangaria → Valley of Flowers",
+    "region": "Chamoli",
+    "tags": [
+      "Valleys",
+      "Treks"
+    ],
+    "altitude": 3658,
+    "days": 5,
+    "trek": "14 km",
+    "difficulty": "Moderate",
+    "season": "Jun–Oct (peak Jul–Aug)",
+    "start": "Rishikesh",
+    "style": "mist",
+    "summary": "A UNESCO-listed alpine valley that turns into a carpet of wildflowers in the monsoon, with Hemkund Sahib as an optional climb.",
+    "story": "",
+    "reel": "",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Govindghat",
+        "x": "Drive to Govindghat near Joshimath."
+      },
+      {
+        "d": "Day 2",
+        "t": "Trek to Ghangaria",
+        "x": "Shared jeep to Pulna, then about 10 km up the Lakshman Ganga to Ghangaria."
+      },
+      {
+        "d": "Day 3",
+        "t": "Valley of Flowers",
+        "x": "Walk into the valley (about 4 km in) and spend the day among the flowers. Return to Ghangaria by evening."
+      },
+      {
+        "d": "Day 4",
+        "t": "Descend to Govindghat",
+        "x": "Trek back to Pulna. Add a day here if you want the steep climb to Hemkund Sahib."
+      },
+      {
+        "d": "Day 5",
+        "t": "Govindghat to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by evening."
+      }
+    ],
+    "tips": [
+      "Entry permit is taken at the forest checkpost; camping inside the valley is not allowed.",
+      "Pack a proper rain jacket; this is a monsoon trek."
+    ],
+    "media": []
+  },
+  {
+    "id": "kartik-swami",
+    "title": "Kartik Swami",
+    "route": "Rishikesh → Kanakchauri → Kartik Swami",
+    "region": "Rudraprayag",
+    "tags": [
+      "Treks"
+    ],
+    "altitude": 3050,
+    "days": 2,
+    "trek": "3 km",
+    "difficulty": "Easy",
+    "season": "All year (clearest Oct–Mar)",
+    "start": "Rishikesh",
+    "style": "dusk",
+    "summary": "A ridge-top temple to Lord Kartikeya, rare in North India, with a 360° view of the Kedar and Chaukhamba ranges at sunset.",
+    "story": "",
+    "reel": "",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Kartik Swami",
+        "x": "Drive to Kanakchauri via Rudraprayag, then the 3 km climb to the temple for sunset and evening aarti. Stay in Kanakchauri."
+      },
+      {
+        "d": "Day 2",
+        "t": "Kanakchauri to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by evening."
+      }
+    ],
+    "tips": [
+      "Go for the evening aarti and sunset, but carry a torch for the walk down."
+    ],
+    "media": []
+  },
+  {
+    "id": "harshil",
+    "title": "Harshil Valley",
+    "route": "Rishikesh → Uttarkashi → Harshil → Bagori",
+    "region": "Uttarkashi",
+    "tags": [
+      "Valleys"
+    ],
+    "altitude": 2620,
+    "days": 3,
+    "trek": "Road trip",
+    "difficulty": "Easy",
+    "season": "Apr–Nov (apples Aug–Oct)",
+    "start": "Rishikesh",
+    "style": "day",
+    "summary": "A deodar-and-apple valley on the Bhagirathi, with Bagori village and Mukhba, the winter home of Goddess Ganga.",
+    "story": "",
+    "reel": "",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Harshil",
+        "x": "Drive via Uttarkashi up the Bhagirathi valley and settle into a riverside stay."
+      },
+      {
+        "d": "Day 2",
+        "t": "Bagori and Mukhba",
+        "x": "Walk through Bagori village and the orchards, then visit Mukhba across the river."
+      },
+      {
+        "d": "Day 3",
+        "t": "Harshil to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by evening."
+      }
+    ],
+    "tips": [
+      "Pair it with Gangotri, which is only about an hour further up the road."
+    ],
+    "media": []
+  },
+  {
+    "id": "gangotri",
+    "title": "Gangotri",
+    "route": "Rishikesh → Uttarkashi → Gangotri",
+    "region": "Uttarkashi",
+    "tags": [
+      "Char Dham"
+    ],
+    "altitude": 3100,
+    "days": 4,
+    "trek": "Road trip",
+    "difficulty": "Easy",
+    "season": "May–Nov",
+    "start": "Rishikesh",
+    "style": "dawn",
+    "summary": "The Char Dham shrine of Goddess Ganga where the Bhagirathi runs through a granite gorge. Gaumukh glacier is an optional permit trek.",
+    "story": "",
+    "reel": "",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Uttarkashi",
+        "x": "Drive up the Bhagirathi valley and stay in Uttarkashi."
+      },
+      {
+        "d": "Day 2",
+        "t": "Uttarkashi to Gangotri",
+        "x": "Drive past Harshil to Gangotri. Evening aarti on the Bhagirathi ghats."
+      },
+      {
+        "d": "Day 3",
+        "t": "Surya Kund and back to Uttarkashi",
+        "x": "Darshan, Surya Kund falls and the Bhagirath Shila, then drive down to Uttarkashi."
+      },
+      {
+        "d": "Day 4",
+        "t": "Uttarkashi to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by evening."
+      }
+    ],
+    "tips": [
+      "Gaumukh needs a forest permit with a daily quota; apply early.",
+      "Char Dham registration is required before you travel."
+    ],
+    "media": []
+  }
+]
