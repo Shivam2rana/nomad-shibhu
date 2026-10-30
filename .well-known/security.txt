@@ -1,0 +1,4 @@
+Contact: https://www.instagram.com/nomad.shibhu/
+Expires: 2027-10-25T13:34:08Z
+Preferred-Languages: en, hi
+Canonical: https://shivam2rana.github.io/nomad-shibhu/.well-known/security.txt
