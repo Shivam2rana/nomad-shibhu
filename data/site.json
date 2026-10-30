@@ -12,7 +12,7 @@
     "photo": "",
     "paragraphs": [
       "I’m a pahadi from Uttarakhand who lives in Mumbai, and I head back to the hills every chance I get. My trips are slow ones: long drives up the river valleys, early starts on the trail, old mountain temples and time in pahadi villages.",
-      "So far I’ve completed all five Panch Kedar temples and travelled to Badrinath, Gangotri, Harshil, Kartik Swami, Auli and the Valley of Flowers.",
+      "So far I’ve completed all five Panch Kedar temples, travelled to Badrinath, Gangotri, Yamunotri, Harshil, Kartik Swami, Auli and the Valley of Flowers, and trekked Brahmatal, Kuari Pass and Satopanth Tal.",
       "I share these journeys as reels on Instagram, and this site is where the full plans live: how many days each trip takes, what the trail is like and when to go. If you’re planning one, follow me and send a DM."
     ],
     "facts": [
@@ -28,7 +28,7 @@
       "a": "By train to Yog Nagari Rishikesh or Haridwar (about 25 km away), by flight to Dehradun Jolly Grant airport (about 35 km), or by overnight bus from Delhi. Every itinerary on this site starts and ends in Rishikesh."
     },
     {
-      "q": "Do I need to register for Kedarnath, Badrinath or Gangotri?",
+      "q": "Do I need to register for Kedarnath, Badrinath, Gangotri or Yamunotri?",
       "a": "Yes. Online registration for the Char Dham yatra is compulsory and is checked at the shrines. Register on the Uttarakhand government portal, registrationandtouristcare.uk.gov.in, and carry your ID. If you are over 55 or have a heart, lung, diabetes or blood-pressure condition, a medical check-up is required before the yatra."
     },
     {
@@ -37,7 +37,7 @@
     },
     {
       "q": "Which trip is best for a first Himalayan trek?",
-      "a": "Kartik Swami and Tungnath–Chandrashila are short and easy, and Auli is mostly a road trip with an easy walk to Gorson Bugyal. Rudranath is the hardest trek on this site; do it after you have some trekking experience."
+      "a": "Kartik Swami and Tungnath–Chandrashila are short and easy, and Auli is mostly a road trip with an easy walk to Gorson Bugyal. For a first multi-day camping trek, Brahmatal and Kuari Pass are good choices. Rudranath and Satopanth Tal are the hardest treks on this site; do them after you have some trekking experience."
     },
     {
       "q": "Is altitude sickness a risk?",
@@ -53,7 +53,9 @@
     },
     {
       "q": "Can you help me plan my trip?",
-      "a": "Yes. Follow @nomad.shibhu on Instagram and send me a DM with your dates and the place you have in mind. I reply with the route, where to stay and what to pack."
+      "a": "Yes. Send me an enquiry from the Enquire page with your dates, group size and the trip you have in mind, or follow @nomad.shibhu and DM me on Instagram. I reply with the route, where to stay and what to pack."
     }
-  ]
+  ],
+  "whatsapp": "",
+  "email": ""
 }

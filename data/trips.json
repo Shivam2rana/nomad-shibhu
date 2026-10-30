@@ -500,5 +500,226 @@
     ],
     "media": [],
     "months": "xxxobbooobox"
+  },
+  {
+    "id": "yamunotri",
+    "title": "Yamunotri",
+    "route": "Rishikesh → Barkot → Janki Chatti → Yamunotri",
+    "region": "Uttarkashi",
+    "tags": [
+      "Char Dham",
+      "Treks"
+    ],
+    "altitude": 3293,
+    "days": 3,
+    "trek": "6 km",
+    "difficulty": "Moderate",
+    "season": "May–Jun · Sep–Oct",
+    "start": "Rishikesh",
+    "style": "dawn",
+    "summary": "The first of the Char Dham, the temple of Goddess Yamuna below Bandarpunch, reached by a steep 6 km walk from Janki Chatti.",
+    "story": "",
+    "reel": "",
+    "months": "xxxobbooobox",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Barkot",
+        "x": "Drive via Mussoorie or Chamba to Barkot on the Yamuna. Stay in Barkot."
+      },
+      {
+        "d": "Day 2",
+        "t": "Trek to Yamunotri",
+        "x": "Drive to Janki Chatti and walk 6 km up to the temple. Dip in the hot springs, see Surya Kund and Divya Shila, then walk back down and return to Barkot."
+      },
+      {
+        "d": "Day 3",
+        "t": "Barkot to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by evening."
+      }
+    ],
+    "tips": [
+      "Register online for the Char Dham yatra before you travel (registrationandtouristcare.uk.gov.in). It is checked at the shrine.",
+      "The trail is short but steep; ponies and palkis are available at Janki Chatti if you need them.",
+      "Phones and cameras are not allowed inside the temple premises, so film outside."
+    ],
+    "media": []
+  },
+  {
+    "id": "brahmatal",
+    "title": "Brahmatal Trek",
+    "route": "Rishikesh → Lohajung → Bekaltal → Brahmatal",
+    "region": "Chamoli",
+    "tags": [
+      "Treks"
+    ],
+    "altitude": 3734,
+    "days": 6,
+    "trek": "22 km",
+    "difficulty": "Easy–Moderate",
+    "season": "Dec–Mar (snow) · Sep–Nov",
+    "start": "Rishikesh",
+    "style": "mist",
+    "summary": "A classic winter snow trek through oak and rhododendron forest to two frozen lakes, with Trishul and Nanda Ghunti right in front of you.",
+    "story": "",
+    "reel": "",
+    "months": "bbboooxxooob",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Lohajung",
+        "x": "Long drive via Karnaprayag and Tharali to Lohajung, the trek's base village."
+      },
+      {
+        "d": "Day 2",
+        "t": "Lohajung to Bekaltal",
+        "x": "Climb through oak and rhododendron forest to camp near Bekaltal lake."
+      },
+      {
+        "d": "Day 3",
+        "t": "Bekaltal to Brahmatal",
+        "x": "Walk the ridge past Tilandi to the Brahmatal lake campsite."
+      },
+      {
+        "d": "Day 4",
+        "t": "Brahmatal top and descent",
+        "x": "Early climb to Brahmatal top (about 3,734 m) for Trishul and Nanda Ghunti, then come down to the lower camp."
+      },
+      {
+        "d": "Day 5",
+        "t": "Back to Lohajung",
+        "x": "Descend through the forest to Lohajung."
+      },
+      {
+        "d": "Day 6",
+        "t": "Lohajung to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by late evening."
+      }
+    ],
+    "tips": [
+      "In peak winter the lakes freeze and snow covers the trail; carry gaiters and microspikes.",
+      "Go with a registered local trek organiser or guide; campsites have no permanent shelter."
+    ],
+    "media": []
+  },
+  {
+    "id": "kuari-pass",
+    "title": "Kuari Pass Trek",
+    "route": "Rishikesh → Joshimath → Dhak → Kuari Pass → Auli",
+    "region": "Chamoli",
+    "tags": [
+      "Treks"
+    ],
+    "altitude": 3815,
+    "days": 6,
+    "trek": "33 km",
+    "difficulty": "Easy–Moderate",
+    "season": "Dec–Mar · Apr–Jun · Oct–Nov",
+    "start": "Rishikesh",
+    "style": "day",
+    "summary": "Lord Curzon's old trail through meadows and forest to a pass facing Nanda Devi, Dronagiri, Kamet and Hathi Ghoda in one sweep.",
+    "story": "",
+    "reel": "",
+    "months": "bbbbbbxxoobb",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Joshimath",
+        "x": "Drive up the Alaknanda past the five prayags to Joshimath."
+      },
+      {
+        "d": "Day 2",
+        "t": "Dhak to Gulling",
+        "x": "Short drive to Dhak, then climb through villages and forest to the Gulling campsite."
+      },
+      {
+        "d": "Day 3",
+        "t": "Gulling to Khullara",
+        "x": "Walk through oak forest to the Khullara meadows."
+      },
+      {
+        "d": "Day 4",
+        "t": "Kuari Pass",
+        "x": "Climb to the pass (about 3,815 m) for the full Garhwal panorama, then return to camp."
+      },
+      {
+        "d": "Day 5",
+        "t": "Down to Auli",
+        "x": "Descend via Tali through the forest to Auli, then on to Joshimath."
+      },
+      {
+        "d": "Day 6",
+        "t": "Joshimath to Rishikesh",
+        "x": "Drive back, reaching Rishikesh by evening."
+      }
+    ],
+    "tips": [
+      "Winter brings snow from about Khullara upwards; summer turns the meadows green.",
+      "Combine with a day in Auli or a visit to Badrinath if you have extra days."
+    ],
+    "media": []
+  },
+  {
+    "id": "satopanth",
+    "title": "Satopanth Tal Trek",
+    "route": "Rishikesh → Badrinath → Mana → Satopanth Tal",
+    "region": "Chamoli",
+    "tags": [
+      "Treks"
+    ],
+    "altitude": 4600,
+    "days": 7,
+    "trek": "22 km",
+    "difficulty": "Difficult",
+    "season": "Jun · Sep–Oct",
+    "start": "Rishikesh",
+    "style": "mist",
+    "summary": "A tough high-altitude walk from Mana along the Alaknanda's glacier valley to a triangular sacred lake under Chaukhamba and Neelkanth.",
+    "story": "",
+    "reel": "",
+    "months": "xxxxobxxbbxx",
+    "itinerary": [
+      {
+        "d": "Day 1",
+        "t": "Rishikesh to Joshimath",
+        "x": "Drive up the Alaknanda valley to Joshimath."
+      },
+      {
+        "d": "Day 2",
+        "t": "Joshimath to Badrinath",
+        "x": "Short drive to Badrinath. Darshan, then rest and acclimatise."
+      },
+      {
+        "d": "Day 3",
+        "t": "Mana to Laxmi Van",
+        "x": "Walk from Mana past Vasudhara falls to the Laxmi Van campsite."
+      },
+      {
+        "d": "Day 4",
+        "t": "Laxmi Van to Chakratirtha",
+        "x": "Cross moraine and boulder fields past Sahastradhara to Chakratirtha."
+      },
+      {
+        "d": "Day 5",
+        "t": "Satopanth Tal",
+        "x": "Steep climb to the lake (about 4,600 m) under Chaukhamba, then back to Chakratirtha."
+      },
+      {
+        "d": "Day 6",
+        "t": "Back to Badrinath",
+        "x": "Long walk down to Mana and Badrinath."
+      },
+      {
+        "d": "Day 7",
+        "t": "Badrinath to Rishikesh",
+        "x": "Long drive back, reaching Rishikesh late in the evening."
+      }
+    ],
+    "tips": [
+      "This trek is above 4,000 m on unmarked moraine; do it only with prior high-altitude experience.",
+      "Check permit rules with the forest office in Joshimath or Badrinath before you go, and take a registered local guide.",
+      "Nights at Chakratirtha are below freezing even in summer; carry a proper sleeping bag."
+    ],
+    "media": []
   }
 ]

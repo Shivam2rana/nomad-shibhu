@@ -57,6 +57,7 @@ const I = {
   plane: '<path d="M2.5 13.5l19-6.5-6.5 13-2.5-6z"/><path d="M12.5 14l9-7"/>',
   bus: '<rect x="4" y="3.5" width="16" height="14" rx="3"/><path d="M4 11h16M8 21v-3.5M16 21v-3.5M8 14.5h.01M16 14.5h.01"/>',
   chat: '<path d="M4 19.5l1.3-3.8A8 8 0 1 1 8.6 19z"/><path d="M9 10.5h6M9 13.5h4"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 6 8-6"/>',
   share: '<circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1"/>',
   link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
 };
@@ -180,7 +181,7 @@ function header(pre, home) {
   return `<header class="top"><div class="wrap">
 <a class="mark" href="${pre}index.html" aria-label="${esc(site.title)} home"><span>Nomad</span><b>Shibhu</b></a>
 <nav class="nav" aria-label="Main"><a href="${h}#trips">Trips</a><a href="${h}#when-to-go">When to go</a><a href="${h}#getting-there">Getting there</a><a href="${h}#panch-kedar">Panch Kedar</a><a href="${h}#about">About</a><a href="${h}#faq">FAQ</a></nav>
-<div class="top-actions"><a class="btn btn-primary" href="${esc(site.instagram)}" ${ext} aria-label="Follow @${esc(site.handle)} on Instagram">${ico("ig")}Follow</a></div>
+<div class="top-actions"><a class="btn btn-soft" href="${pre}enquire/">Enquire</a><a class="btn btn-primary" href="${esc(site.instagram)}" ${ext} aria-label="Follow @${esc(site.handle)} on Instagram">${ico("ig")}Follow</a></div>
 </div></header>`;
 }
 function footer() {
@@ -286,11 +287,11 @@ ${faq.length ? `<section class="block faq-band" id="faq"><div class="wrap faq">
 </div></section>` : ""}
 <section class="block cta-band" id="follow"><div class="wrap cta">
 <div><span class="kicker">Planning your own trip?</span><h2>Pick a trail.<span class="it">I’ll help you plan it.</span></h2>
-<p>Follow me on Instagram and send a DM with your dates and the place you have in mind. I reply with the route, where to stay and what to pack.</p></div>
+<p>Send me an enquiry with your dates, group size and the place you have in mind. I reply with the route, where to stay and what to pack.</p></div>
 <div class="cta-card">
 <div class="handle"><div class="avatar"><span>SR</span></div><div><b>@${esc(site.handle)}</b><small>${esc(site.name)} · ${esc(site.base)}</small></div></div>
+<a class="btn btn-primary" href="enquire/">${ico("chat")}Send an enquiry</a>
 <a class="btn btn-ig" href="${esc(site.instagram)}" ${ext}>${ico("ig")}Follow @${esc(site.handle)}</a>
-<a class="btn btn-line" href="${esc(site.instagram)}" ${ext}>Open my Instagram ${ico("arrow")}</a>
 </div></div></section>
 </main>
 ` + footer();
@@ -351,6 +352,10 @@ ${(t.tips || []).length ? `<section><h2>Tips before you go</h2><ul class="tips">
 <div><dt>${ico("pin")}Meeting point</dt><dd>${esc(t.start || "Rishikesh")}</dd></div>
 <div><dt>${ico("cal")}Best time</dt><dd>${esc(t.season)}</dd></div>
 </dl></div>
+<div class="panel"><h4>Planning this trip?</h4><p>Send me your dates and group size. I’ll share what worked for me.</p>
+<a class="btn btn-primary" href="${pre}enquire/?trip=${esc(t.id)}">${ico("chat")}Enquire about this trip</a>
+${t.reel ? `<a class="btn btn-line" href="${esc(t.reel)}" ${ext}>${ico("play")}Watch the reel</a>` : ""}
+<a class="btn btn-ig" href="${esc(site.instagram)}" ${ext}>${ico("ig")}Follow on Instagram</a></div>
 ${t.months ? `<div class="panel"><h4>Month by month</h4>${monthStrip(t)}${seasonLegend}</div>` : ""}
 <div class="panel"><h4>Share this trip</h4><p>Send it to the friends you’re going with.</p>
 <div class="share-row">
@@ -358,11 +363,56 @@ ${t.months ? `<div class="panel"><h4>Month by month</h4>${monthStrip(t)}${season
 <button class="btn btn-line" type="button" data-share="${esc(url)}" data-title="${esc(t.title)}" hidden>${ico("share")}Share</button>
 <button class="btn btn-line" type="button" data-copy="${esc(url)}" hidden>${ico("link")}Copy link</button>
 </div><p class="copy-msg" aria-live="polite"></p></div>
-<div class="panel"><h4>Going there?</h4><p>Follow me and DM your dates. I’ll share what worked for me.</p>
-${t.reel ? `<a class="btn btn-line" href="${esc(t.reel)}" ${ext}>${ico("play")}Watch the reel</a>` : ""}
-<a class="btn btn-ig" href="${esc(site.instagram)}" ${ext}>${ico("ig")}Follow on Instagram</a></div>
 </aside></div>
 <section class="wrap more-trips"><h2>More trips</h2><div class="grid">${more.map((x) => card(x, pre)).join("")}</div></section>
+</main>
+` + footer();
+}
+
+/* ---------- enquiry page: the visitor's own app sends the message; nothing is stored here ---------- */
+function enquirePage() {
+  const pre = "../";
+  const wa = String(site.whatsapp || "").replace(/\D/g, "");
+  const email = /^[^\s@<>"]+@[^\s@<>"]+\.[a-z]{2,}$/i.test(site.email || "") ? site.email : "";
+  const igDm = `https://ig.me/m/${encodeURIComponent(site.handle)}`;
+  const opt = (v, label) => `<option value="${esc(v)}">${esc(label)}</option>`;
+  return head({
+    title: `Plan a trip with me · ${site.title}`,
+    description: "Send Shivam (@nomad.shibhu) your dates, group size and the Uttarakhand trip you have in mind.",
+    canonical: abs("enquire/"), image: abs("images/og.jpg"), pre,
+  }) + header(pre, false) + `
+<main id="main" class="wrap enq">
+<div class="enq-intro">
+<span class="kicker">Plan a trip</span>
+<h1>Tell me about your trip.</h1>
+<p>Fill this in, then send it to me on ${[wa && "WhatsApp", email && "email", "Instagram"].filter(Boolean).join(", ").replace(/, ([^,]+)$/, " or $1")}. Your details go straight from your phone to me; this website doesn’t store anything.</p>
+<ul class="tips">
+<li>${ico("check")}<span>I reply with the route, where to stay and what to pack.</span></li>
+<li>${ico("check")}<span>Every itinerary starts and ends in Rishikesh. <a href="${pre}index.html#getting-there">How to reach</a></span></li>
+<li>${ico("check")}<span>Not sure where to go? Pick “Suggest a trip for me” and tell me your month.</span></li>
+</ul>
+</div>
+<form class="enq-form panel" id="enq" data-wa="${esc(wa)}" data-email="${esc(email)}" data-ig="${esc(igDm)}" novalidate>
+<div class="fld"><label for="e-name">Your name</label><input id="e-name" name="name" autocomplete="name" maxlength="60" required></div>
+<div class="f2">
+<div class="fld"><label for="e-trip">Trip</label><select id="e-trip" name="trip">${opt("", "Suggest a trip for me")}${trips.map((t) => `<option value="${esc(t.id)}">${esc(t.title)}</option>`).join("")}</select></div>
+<div class="fld"><label for="e-month">When</label><select id="e-month" name="month">${opt("", "Flexible")}${MONTHS.map((m, i) => opt(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][i], ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][i])).join("")}</select></div>
+<div class="fld"><label for="e-people">People</label><input id="e-people" name="people" type="number" inputmode="numeric" min="1" max="50" value="2"></div>
+<div class="fld"><label for="e-exp">Trekking experience</label><select id="e-exp" name="exp">${opt("First trek", "This will be my first trek")}${opt("Done a few treks", "I’ve done a few treks")}${opt("Experienced", "I trek regularly")}</select></div>
+</div>
+<div class="fld"><label for="e-phone">Phone <small>(optional, for a WhatsApp reply)</small></label><input id="e-phone" name="phone" type="tel" autocomplete="tel" maxlength="20" inputmode="tel"></div>
+<div class="fld"><label for="e-msg">Anything else?</label><textarea id="e-msg" name="msg" maxlength="800" rows="4" placeholder="Dates, budget, where you’re travelling from, questions…"></textarea></div>
+<p class="enq-err" id="enq-err" role="alert"></p>
+<div class="send">
+<span class="send-label">Send it to me on</span>
+${wa ? `<button class="btn btn-wa" type="button" data-send="whatsapp">${ico("chat")}WhatsApp</button>` : ""}
+${email ? `<button class="btn btn-line" type="button" data-send="email">${ico("mail")}Email</button>` : ""}
+<button class="btn btn-ig" type="button" data-send="instagram">${ico("ig")}Instagram DM</button>
+</div>
+<p class="enq-ok" id="enq-ok" aria-live="polite"></p>
+<div class="enq-fallback" id="enq-fallback" hidden><label for="e-copy">Copy this message and paste it in the chat:</label><textarea id="e-copy" rows="7" readonly></textarea></div>
+<noscript><p class="enq-err">This form needs JavaScript. You can still <a href="${esc(site.instagram)}" ${ext}>message me on Instagram</a>.</p></noscript>
+</form>
 </main>
 ` + footer();
 }
@@ -420,12 +470,14 @@ for (const t of trips) {
   fs.mkdirSync(path.join(OUT, "trips", t.id), { recursive: true });
   fs.writeFileSync(path.join(OUT, "trips", t.id, "index.html"), tripPage(t));
 }
+fs.mkdirSync(path.join(OUT, "enquire"), { recursive: true });
+fs.writeFileSync(path.join(OUT, "enquire", "index.html"), enquirePage());
 fs.writeFileSync(path.join(OUT, "404.html"), notFoundPage());
 fs.writeFileSync(path.join(OUT, ".nojekyll"), "");
 const today = new Date().toISOString().slice(0, 10);
 fs.writeFileSync(path.join(OUT, "sitemap.xml"),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-  [site.url, ...trips.map((t) => abs(`trips/${t.id}/`))].map((u) => `<url><loc>${esc(u)}</loc><lastmod>${today}</lastmod></url>`).join("\n") + "\n</urlset>\n");
+  [site.url, abs("enquire/"), ...trips.map((t) => abs(`trips/${t.id}/`))].map((u) => `<url><loc>${esc(u)}</loc><lastmod>${today}</lastmod></url>`).join("\n") + "\n</urlset>\n");
 fs.writeFileSync(path.join(OUT, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${abs("sitemap.xml")}\n`);
 const expires = new Date(Date.now() + 360 * 864e5).toISOString().replace(/\.\d+Z$/, "Z");
 fs.mkdirSync(path.join(OUT, ".well-known"), { recursive: true });

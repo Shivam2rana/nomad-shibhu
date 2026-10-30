@@ -121,3 +121,78 @@
     });
   });
 })();
+
+// Enquiry form: builds the message and opens the visitor's WhatsApp, email or Instagram.
+(function () {
+  "use strict";
+  var form = document.getElementById("enq");
+  if (!form) return;
+  var $ = function (id) { return document.getElementById(id); };
+  var err = $("enq-err"), ok = $("enq-ok"), fb = $("enq-fallback");
+  try {
+    var want = new URLSearchParams(location.search).get("trip");
+    if (want && /^[a-z0-9-]{2,60}$/.test(want)) {
+      var sel = $("e-trip");
+      for (var i = 0; i < sel.options.length; i++) if (sel.options[i].value === want) sel.selectedIndex = i;
+    }
+  } catch (e) {}
+  form.addEventListener("submit", function (e) { e.preventDefault(); });
+
+  var clean = function (s, n) { return String(s || "").replace(/[\u0000-\u0008\u000b-\u001f]/g, "").trim().slice(0, n); };
+  var build = function () {
+    var name = clean($("e-name").value, 60);
+    if (!name) {
+      $("e-name").setAttribute("aria-invalid", "true");
+      err.textContent = "Add your name so I know who’s asking.";
+      $("e-name").focus();
+      return null;
+    }
+    $("e-name").removeAttribute("aria-invalid");
+    err.textContent = "";
+    var tripSel = $("e-trip");
+    var people = Math.max(1, Math.min(50, parseInt($("e-people").value, 10) || 1));
+    var lines = [
+      "Hi Shivam, I found your trip site and want to plan a trip.",
+      "",
+      "Name: " + name,
+      "Trip: " + (tripSel.value ? tripSel.options[tripSel.selectedIndex].text : "Please suggest one"),
+      "When: " + ($("e-month").value || "Flexible"),
+      "People: " + people,
+      "Experience: " + $("e-exp").value
+    ];
+    var phone = clean($("e-phone").value, 20).replace(/[^\d+\s-]/g, "");
+    if (phone) lines.push("Phone: " + phone);
+    var msg = clean($("e-msg").value, 800);
+    if (msg) lines.push("", msg);
+    return { text: lines.join("\n"), trip: tripSel.value ? tripSel.options[tripSel.selectedIndex].text : "Trip enquiry" };
+  };
+  var open = function (url) {
+    var w = window.open(url, "_blank", "noopener,noreferrer");
+    if (!w) location.href = url;
+  };
+
+  Array.prototype.forEach.call(form.querySelectorAll("[data-send]"), function (b) {
+    b.addEventListener("click", function () {
+      var m = build();
+      if (!m) return;
+      ok.textContent = ""; fb.hidden = true;
+      var how = b.getAttribute("data-send");
+      if (how === "whatsapp") {
+        open("https://wa.me/" + form.getAttribute("data-wa") + "?text=" + encodeURIComponent(m.text));
+        ok.textContent = "WhatsApp is opening with your message. Tap Send there.";
+      } else if (how === "email") {
+        location.href = "mailto:" + form.getAttribute("data-email") +
+          "?subject=" + encodeURIComponent("Trip enquiry: " + m.trip) + "&body=" + encodeURIComponent(m.text);
+        ok.textContent = "Your email app is opening with the message. Tap Send there.";
+      } else {
+        var go = function (copied) {
+          if (copied) ok.textContent = "Message copied. Paste it in the Instagram chat that opens, then send.";
+          else { $("e-copy").value = m.text; fb.hidden = false; ok.textContent = "Copy the message below and paste it in the Instagram chat."; }
+          open(form.getAttribute("data-ig"));
+        };
+        if (navigator.clipboard) navigator.clipboard.writeText(m.text).then(function () { go(true); }, function () { go(false); });
+        else go(false);
+      }
+    });
+  });
+})();
