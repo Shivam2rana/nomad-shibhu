@@ -34,6 +34,15 @@ for (const t of trips) {
   if (t.reel && !/^https:\/\/(www\.)?instagram\.com\//.test(t.reel)) throw new Error(`Reel link must be an instagram.com URL: ${t.reel}`);
 }
 
+/* ---------- privacy guard: no phone numbers in any text that gets published ---------- */
+// The only place a number may appear is site.whatsapp, and only on purpose.
+{
+  const { whatsapp, ...rest } = site;
+  const text = JSON.stringify([rest, trips]);
+  const phone = /(?:\+?91[\s-]?)?(?<!\d)[6-9]\d{4}[\s-]?\d{5}(?!\d)/;
+  if (phone.test(text)) throw new Error("A phone number was found in data/site.json or data/trips.json. Remove it before publishing.");
+}
+
 /* ---------- helpers ---------- */
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const fmtAlt = (m) => (m ? Number(m).toLocaleString("en-IN") + " m" : "–");

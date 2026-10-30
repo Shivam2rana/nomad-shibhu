@@ -52,6 +52,9 @@ Upload `images/shivam.jpg` (portrait, about 840 × 1050) and set `"photo": "imag
 - Static HTML only: no server, database, login or admin panel to attack.
 - Strict Content Security Policy: only the site's own scripts, styles, fonts and images can load.
 - No third-party scripts, trackers or font services. Fonts are self-hosted.
+- No phone numbers: the build stops if a phone number appears anywhere in the trip or site text.
+  The WhatsApp button stays off unless `whatsapp` in `data/site.json` is filled in, and any number
+  put there is visible to visitors, so use a separate business number, never a personal one.
 - Original photos are never published; only resized copies with metadata (GPS) removed.
 - All text from the data files is escaped when pages are built; the build fails on bad paths or ids.
 - External links open with `noopener noreferrer`; referrer policy is `strict-origin-when-cross-origin`.
