@@ -40,7 +40,8 @@
       "Leave Chopta by 4:30 am if you want the Chandrashila sunrise.",
       "In winter the temple closes and the deity moves to Makkumath."
     ],
-    "media": []
+    "media": [],
+    "months": "oooobbooobbo"
   },
   {
     "id": "kedarnath",
@@ -86,10 +87,12 @@
       }
     ],
     "tips": [
-      "Char Dham registration is required before you travel.",
-      "Start the trek early; afternoons often bring rain and crowded trails."
+      "Register online for the Char Dham yatra before you travel (registrationandtouristcare.uk.gov.in). It is checked at the shrine.",
+      "Start the trek early; afternoons often bring rain and crowded trails.",
+      "Phones and cameras are not allowed inside the temple premises, so film outside."
     ],
-    "media": []
+    "media": [],
+    "months": "xxxobbooobox"
   },
   {
     "id": "rudranath",
@@ -142,7 +145,8 @@
       "Few shops on this route, so carry snacks and water purification.",
       "Hire a local guide or porter from Sagar if it is your first high-altitude trek."
     ],
-    "media": []
+    "media": [],
+    "months": "xxxxbbooobxx"
   },
   {
     "id": "madhyamaheshwar",
@@ -189,7 +193,8 @@
     "tips": [
       "Homestays at Gaundar and near the temple are simple; book ahead in peak season."
     ],
-    "media": []
+    "media": [],
+    "months": "xxxxbbooobox"
   },
   {
     "id": "kalpeshwar",
@@ -230,7 +235,8 @@
     "tips": [
       "Easy to add to a Badrinath or Valley of Flowers trip since Helang is on the same highway."
     ],
-    "media": []
+    "media": [],
+    "months": "oobbbbooobbo"
   },
   {
     "id": "badrinath",
@@ -268,9 +274,11 @@
       }
     ],
     "tips": [
-      "Char Dham registration is required before you travel."
+      "Register online for the Char Dham yatra before you travel (registrationandtouristcare.uk.gov.in). It is checked at the shrine.",
+      "Phones and cameras are not allowed inside the temple premises, so film outside."
     ],
-    "media": []
+    "media": [],
+    "months": "xxxobbooobox"
   },
   {
     "id": "auli",
@@ -311,7 +319,8 @@
       "Come in January or February for snow; ski gear can be hired in Auli.",
       "Easy to pair with Badrinath or Valley of Flowers, which are on the same highway past Joshimath."
     ],
-    "media": []
+    "media": [],
+    "months": "bbbbbbooooob"
   },
   {
     "id": "valley-of-flowers",
@@ -360,10 +369,12 @@
       }
     ],
     "tips": [
-      "Entry permit is taken at the forest checkpost; camping inside the valley is not allowed.",
+      "The park is open 1 June to 31 October. Entry is 7 am to 2 pm and everyone must be out by 5 pm.",
+      "The permit (about ₹150 for Indians, valid three days) is available online or at the forest counter in Ghangaria. Camping inside is not allowed.",
       "Pack a proper rain jacket; this is a monsoon trek."
     ],
-    "media": []
+    "media": [],
+    "months": "xxxxxobbooxx"
   },
   {
     "id": "kartik-swami",
@@ -398,7 +409,8 @@
     "tips": [
       "Go for the evening aarti and sunset, but carry a torch for the walk down."
     ],
-    "media": []
+    "media": [],
+    "months": "bbbooooooobb"
   },
   {
     "id": "harshil",
@@ -438,7 +450,8 @@
     "tips": [
       "Pair it with Gangotri, which is only about an hour further up the road."
     ],
-    "media": []
+    "media": [],
+    "months": "xxobbbooobbo"
   },
   {
     "id": "gangotri",
@@ -481,9 +494,11 @@
       }
     ],
     "tips": [
+      "Register online for the Char Dham yatra before you travel (registrationandtouristcare.uk.gov.in). It is checked at the shrine.",
       "Gaumukh needs a forest permit with a daily quota; apply early.",
-      "Char Dham registration is required before you travel."
+      "Phones and cameras are not allowed inside the temple premises, so film outside."
     ],
-    "media": []
+    "media": [],
+    "months": "xxxobbooobox"
   }
 ]

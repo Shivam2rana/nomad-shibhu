@@ -21,5 +21,39 @@
       "Panch Kedar 5/5",
       "Treks · temples · slow travel"
     ]
-  }
+  },
+  "faq": [
+    {
+      "q": "How do I reach Rishikesh?",
+      "a": "By train to Yog Nagari Rishikesh or Haridwar (about 25 km away), by flight to Dehradun Jolly Grant airport (about 35 km), or by overnight bus from Delhi. Every itinerary on this site starts and ends in Rishikesh."
+    },
+    {
+      "q": "Do I need to register for Kedarnath, Badrinath or Gangotri?",
+      "a": "Yes. Online registration for the Char Dham yatra is compulsory and is checked at the shrines. Register on the Uttarakhand government portal, registrationandtouristcare.uk.gov.in, and carry your ID. If you are over 55 or have a heart, lung, diabetes or blood-pressure condition, a medical check-up is required before the yatra."
+    },
+    {
+      "q": "When are the Panch Kedar temples open?",
+      "a": "Kedarnath, Tungnath, Rudranath and Madhyamaheshwar open around late April or May and close for winter around October–November, when the deities move to their winter seats. Kalpeshwar is open all year. The exact dates are announced every year, so check them before you book."
+    },
+    {
+      "q": "Which trip is best for a first Himalayan trek?",
+      "a": "Kartik Swami and Tungnath–Chandrashila are short and easy, and Auli is mostly a road trip with an easy walk to Gorson Bugyal. Rudranath is the hardest trek on this site; do it after you have some trekking experience."
+    },
+    {
+      "q": "Is altitude sickness a risk?",
+      "a": "Several stops are above 3,000 m, including Tungnath, Kedarnath and the Valley of Flowers. Walk slowly, drink plenty of water and sleep lower where you can. If a headache, nausea or dizziness gets worse, go down and see a doctor."
+    },
+    {
+      "q": "What should I pack?",
+      "a": "Warm layers even in summer, a rain jacket, broken-in trekking shoes, a torch, a power bank, basic medicines and some cash, since ATMs and network are patchy in the hills."
+    },
+    {
+      "q": "Can I film inside the temples?",
+      "a": "No. Phones and cameras are not allowed inside the temple premises at the Char Dham shrines, so keep filming for the trail and the views outside."
+    },
+    {
+      "q": "Can you help me plan my trip?",
+      "a": "Yes. Follow @nomad.shibhu on Instagram and send me a DM with your dates and the place you have in mind. I reply with the route, where to stay and what to pack."
+    }
+  ]
 }

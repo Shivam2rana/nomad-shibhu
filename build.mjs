@@ -56,6 +56,9 @@ const I = {
   rail: '<rect x="6" y="3" width="12" height="13" rx="3"/><path d="M6 10h12M9 20l-1.5 1.5M15 20l1.5 1.5M9 13h.01M15 13h.01"/>',
   plane: '<path d="M2.5 13.5l19-6.5-6.5 13-2.5-6z"/><path d="M12.5 14l9-7"/>',
   bus: '<rect x="4" y="3.5" width="16" height="14" rx="3"/><path d="M4 11h16M8 21v-3.5M16 21v-3.5M8 14.5h.01M16 14.5h.01"/>',
+  chat: '<path d="M4 19.5l1.3-3.8A8 8 0 1 1 8.6 19z"/><path d="M9 10.5h6M9 13.5h4"/>',
+  share: '<circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1"/>',
+  link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
 };
 const ico = (n) => `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${I[n]}</svg>`;
 
@@ -98,16 +101,47 @@ function mountainSvg(key, style, w, h) {
 <radialGradient id="glow" cx="${sx}" cy="${sy}" r="${sr * 5}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${P.sun}"/><stop offset="1" stop-color="${P.sun}" stop-opacity="0"/></radialGradient></defs>
 <rect width="${w}" height="${h}" fill="url(#sky)"/><rect width="${w}" height="${h}" fill="url(#glow)"/><circle cx="${sx}" cy="${sy}" r="${sr}" fill="${P.sun}"/>${paths}</svg>`;
 }
-async function renderArt(key, style, w, h, outRel) {
-  const out = path.join(OUT, outRel);
-  fs.mkdirSync(path.dirname(out), { recursive: true });
-  await sharp(Buffer.from(mountainSvg(key, style, w, h))).jpeg({ quality: 84, mozjpeg: true }).toFile(out);
-  return outRel;
+const artBuffer = (key, style, w, h) => sharp(Buffer.from(mountainSvg(key, style, w, h))).png().toBuffer();
+
+/* ---------- responsive images: WebP in two or three sizes + one JPEG fallback ---------- */
+// Photos are auto-rotated, resized and stripped of all metadata (including GPS location).
+const V = new Map();
+async function makeVariants(input, key, widths) {
+  const buf = await sharp(input).rotate().toBuffer();
+  const meta = await sharp(buf).metadata();
+  let use = widths.filter((w) => w <= meta.width);
+  if (!use.length) use = [meta.width];
+  const dir = path.join(OUT, "images/r");
+  fs.mkdirSync(dir, { recursive: true });
+  const webp = [];
+  for (const w of use) {
+    const f = `images/r/${key}-${w}.webp`;
+    await sharp(buf).resize({ width: w }).webp({ quality: 78 }).toFile(path.join(OUT, f));
+    webp.push([f, w]);
+  }
+  const big = use[use.length - 1];
+  const jpg = `images/r/${key}-${big}.jpg`;
+  await sharp(buf).resize({ width: big }).jpeg({ quality: 82, mozjpeg: true }).toFile(path.join(OUT, jpg));
+  return { webp, jpg, w: big, h: Math.round((meta.height * big) / meta.width) };
 }
+function pic(v, { alt = "", sizes = "100vw", cls = "", eager = false, pre = "" }) {
+  return `<picture><source type="image/webp" srcset="${v.webp.map(([f, w]) => `${pre}${f} ${w}w`).join(", ")}" sizes="${sizes}">` +
+    `<img src="${pre}${v.jpg}" alt="${esc(alt)}" width="${v.w}" height="${v.h}"${cls ? ` class="${cls}"` : ""} ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></picture>`;
+}
+const CARD_SIZES = "(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 380px";
 
 /* ---------- page parts ---------- */
-const coverOf = (t) => t.cover || (t.media || []).find((m) => m.kind === "image")?.src || `images/gen/${t.id}.jpg`;
+const coverV = (t) => V.get(t.cover) || V.get((t.media || []).find((m) => m.kind === "image")?.src) || V.get(`gen:${t.id}`);
 const abs = (rel) => new URL(rel, BASE).href;
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const SEASON = { b: ["s-b", "Best time"], o: ["s-o", "Open, but rain, snow or part of the month only"], x: ["s-x", "Closed or not advised"] };
+const ldScript = (obj) => `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, "\\u003c")}</script>\n`;
+const seasonLegend = `<ul class="legend"><li><span class="sw s-b"></span>Best</li><li><span class="sw s-o"></span>Open, with rain, snow or part-month</li><li><span class="sw s-x"></span>Closed or not advised</li></ul>`;
+function monthStrip(t) {
+  const m = t.months || "";
+  if (m.length !== 12) return "";
+  return `<ol class="strip" aria-label="Season by month">${MONTHS.map((n, i) => `<li class="${SEASON[m[i]][0]}" title="${n}: ${SEASON[m[i]][1]}"><span aria-hidden="true">${n[0]}</span><span class="sr">${n}: ${SEASON[m[i]][1]}</span></li>`).join("")}</ol>`;
+}
 const CSP = [
   "default-src 'none'", "script-src 'self'", "style-src 'self'", "img-src 'self' data:", "font-src 'self'",
   "media-src 'self'", "connect-src 'self'", "manifest-src 'self'", "base-uri 'self'", "form-action 'none'", "upgrade-insecure-requests",
@@ -145,7 +179,7 @@ function header(pre, home) {
   const h = home ? "" : `${pre}index.html`;
   return `<header class="top"><div class="wrap">
 <a class="mark" href="${pre}index.html" aria-label="${esc(site.title)} home"><span>Nomad</span><b>Shibhu</b></a>
-<nav class="nav" aria-label="Main"><a href="${h}#trips">Trips</a><a href="${h}#getting-there">Getting there</a><a href="${h}#panch-kedar">Panch Kedar</a><a href="${h}#about">About</a></nav>
+<nav class="nav" aria-label="Main"><a href="${h}#trips">Trips</a><a href="${h}#when-to-go">When to go</a><a href="${h}#getting-there">Getting there</a><a href="${h}#panch-kedar">Panch Kedar</a><a href="${h}#about">About</a><a href="${h}#faq">FAQ</a></nav>
 <div class="top-actions"><a class="btn btn-primary" href="${esc(site.instagram)}" ${ext} aria-label="Follow @${esc(site.handle)} on Instagram">${ico("ig")}Follow</a></div>
 </div></header>`;
 }
@@ -159,7 +193,7 @@ function card(t, pre) {
   const text = [t.title, t.route, t.region, (t.tags || []).join(" "), t.summary].join(" ").toLowerCase();
   const season = (t.season || "").split(" (")[0];
   return `<a class="card" href="${pre}trips/${t.id}/" data-tags="${esc((t.tags || []).join("|"))}" data-text="${esc(text)}">
-<div class="card-media"><img src="${pre}${esc(coverOf(t))}" alt="${esc(t.title)}" loading="lazy" width="1200" height="750"><span class="tag">${esc((t.tags || [])[0] || "Trip")}</span><span class="tag r">${esc(t.days)} ${t.days == 1 ? "day" : "days"}</span></div>
+<div class="card-media">${pic(coverV(t), { alt: t.title, sizes: CARD_SIZES, pre })}<span class="tag">${esc((t.tags || [])[0] || "Trip")}</span><span class="tag r">${esc(t.days)} ${t.days == 1 ? "day" : "days"}</span></div>
 <div class="card-body">
 <div class="route">${ico("pin")}${esc(t.route)}</div>
 <h3>${esc(t.title)}</h3>
@@ -183,17 +217,21 @@ function homePage() {
   const pkDone = PK.filter((p) => ids.has(p.id)).length;
   const names = trips.map((t) => t.title.split(" &")[0]);
   const a = site.about || {};
+  const faq = site.faq || [];
   const ld = {
-    "@context": "https://schema.org", "@type": "Person", name: site.name, url: site.url,
-    sameAs: [site.instagram], description: site.description,
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "Person", "@id": site.url + "#shivam", name: site.name, url: site.url, sameAs: [site.instagram], description: site.description },
+      { "@type": "WebSite", name: site.title, url: site.url, inLanguage: "en-IN", author: { "@id": site.url + "#shivam" } },
+      ...(faq.length ? [{ "@type": "FAQPage", mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }] : []),
+    ],
   };
   return head({
     title: `${site.title} · Uttarakhand travel itineraries`, description: site.description, canonical: site.url,
-    image: abs("images/og.jpg"), pre,
-    extra: `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, "\\u003c")}</script>\n`,
+    image: abs("images/og.jpg"), pre, extra: ldScript(ld),
   }) + header(pre, true) + `
 <main id="main">
-<section class="hero"><img class="hero-bg" src="images/hero.jpg" alt="" width="1800" height="1000">
+<section class="hero">${pic(V.get("hero"), { cls: "hero-bg", sizes: "100vw", eager: true, pre })}
 <div class="wrap">
 <span class="eyebrow-pill">${ico("spark")}Pahadi travel journal</span>
 <h1>Walk the Himalayas with me to <span class="rot" id="rot" data-names="${esc(names.join("|"))}">${esc(names[0] || "Uttarakhand")}</span></h1>
@@ -220,17 +258,32 @@ function homePage() {
 <div class="grid" id="grid">${trips.map((t) => card(t, pre)).join("\n")}</div>
 <p class="empty" id="no-match" hidden>No trips match that yet. Try another place, or ask me on Instagram.</p>
 </div></section>
+<section class="block season-band" id="when-to-go"><div class="wrap">
+<div class="sec-head"><span class="kicker">Plan by month</span><h2>When to go.</h2><p>Temples close for winter, the monsoon brings rain and landslides, and some places are best under snow. Pick your month and see which trips fit.</p></div>
+<p class="now" id="now-good" hidden></p>
+${seasonLegend}
+<div class="season-wrap"><table class="season" id="season">
+<caption class="sr">Season for each trip by month</caption>
+<thead><tr><th scope="col">Trip</th>${MONTHS.map((m, i) => `<th scope="col" data-m="${i}">${m}</th>`).join("")}</tr></thead>
+<tbody>${trips.map((t) => `<tr><th scope="row"><a href="trips/${t.id}/">${esc(t.title)}</a></th>${[...(t.months || "oooooooooooo")].map((c, i) => `<td class="${SEASON[c][0]}" data-m="${i}" data-s="${c}" title="${MONTHS[i]}: ${SEASON[c][1]}"><span class="sr">${SEASON[c][1]}</span></td>`).join("")}</tr>`).join("\n")}</tbody>
+</table></div>
+<p class="fine">Approximate. Temple opening and closing dates are announced every year, so check them before you book.</p>
+</div></section>
 <section class="block pk" id="panch-kedar"><div class="wrap">
 <div class="sec-head center"><span class="kicker">Completed the circuit</span><h2>Panch Kedar, <span class="it">all five.</span></h2><p>The five temples where, as the story goes, parts of Shiva appeared after he vanished from the Pandavas as a bull. Listed in the traditional order.</p></div>
 <div class="pk-row">${PK.map((p) => `<a class="pk-item" href="${ids.has(p.id) ? `trips/${p.id}/` : "#panch-kedar"}">${ids.has(p.id) ? `<span class="done" title="Visited">${ico("check")}</span>` : ""}<span class="n">KEDAR ${p.n}</span><h3>${esc(p.name)}</h3><small>Shiva’s ${esc(p.part)}</small><span class="alt">${esc(fmtAlt(p.alt))}</span></a>`).join("")}</div>
 </div></section>
 <section class="block" id="about"><div class="wrap about">
-<div class="portrait"><img src="${esc(a.photo || "images/gen/about.jpg")}" alt="${a.photo ? esc(site.name) : ""}" loading="lazy" width="840" height="1050">
+<div class="portrait">${pic(V.get("about"), { alt: a.photo ? site.name : "", sizes: "(max-width: 860px) 90vw, 420px", pre })}
 <div class="badge"><div class="avatar"><span>SR</span></div><div><b>${esc(site.name)}</b><small>@${esc(site.handle)} · ${esc(site.base)}</small></div></div></div>
 <div class="about-copy"><span class="kicker">About me</span><h2>${esc(a.heading || "Hi, I’m Shivam.")}</h2>
 ${(a.paragraphs || []).map((p, i) => `<p${i === (a.paragraphs.length - 1) ? ' class="soft"' : ""}>${esc(p)}</p>`).join("\n")}
 <ul class="about-facts">${(a.facts || []).map((f) => `<li>${ico("check")}${esc(f)}</li>`).join("")}</ul>
 </div></div></section>
+${faq.length ? `<section class="block faq-band" id="faq"><div class="wrap faq">
+<div class="sec-head"><span class="kicker">Before you go</span><h2>Questions people ask me.</h2><p>Quick answers to what comes up most in my DMs.</p></div>
+<div class="faq-list">${faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("\n")}</div>
+</div></section>` : ""}
 <section class="block cta-band" id="follow"><div class="wrap cta">
 <div><span class="kicker">Planning your own trip?</span><h2>Pick a trail.<span class="it">I’ll help you plan it.</span></h2>
 <p>Follow me on Instagram and send a DM with your dates and the place you have in mind. I reply with the route, where to stay and what to pack.</p></div>
@@ -251,13 +304,31 @@ function tripPage(t) {
   const others = trips.filter((x) => x.id !== t.id && (x.tags || []).some((g) => (t.tags || []).includes(g))).slice(0, 3);
   const more = others.length ? others : trips.filter((x) => x.id !== t.id).slice(0, 3);
   const desc = `${t.title}: ${t.summary} ${t.days}-day itinerary from Rishikesh.`.slice(0, 300);
+  const url = abs(`trips/${t.id}/`);
+  const cover = coverV(t);
+  const ld = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TouristTrip", name: `${t.title} from Rishikesh`, description: t.summary, url, image: abs(cover.jpg),
+        touristType: (t.tags || []).join(", ") || "Trekking",
+        author: { "@type": "Person", name: site.name, url: site.instagram },
+        itinerary: { "@type": "ItemList", itemListElement: (t.itinerary || []).map((d, i) => ({ "@type": "ListItem", position: i + 1, name: `${d.d}: ${d.t}`, description: d.x })) },
+      },
+      { "@type": "BreadcrumbList", itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Trips", item: site.url },
+        { "@type": "ListItem", position: 2, name: t.title, item: url },
+      ] },
+    ],
+  };
+  const shareText = `${t.title}: ${t.days}-day itinerary from Rishikesh, by @${site.handle} ${url}`;
   return head({
     title: `${t.title} itinerary from Rishikesh · ${site.title}`, description: desc,
-    canonical: abs(`trips/${t.id}/`), image: abs(coverOf(t)), pre,
+    canonical: url, image: abs(cover.jpg), pre, extra: ldScript(ld),
   }) + header(pre, false) + `
 <nav class="crumb" aria-label="Breadcrumb"><div class="wrap"><a href="${pre}index.html#trips">${ico("back")} All trips</a><span>/</span><span>${esc(t.title)}</span></div></nav>
 <main id="main">
-<div class="d-hero"><img src="${pre}${esc(coverOf(t))}" alt="" width="1200" height="750"><div class="wrap">
+<div class="d-hero">${pic(cover, { sizes: "100vw", eager: true, pre })}<div class="wrap">
 <div class="route">${ico("pin")}${esc(t.route)}</div><h1>${esc(t.title)}</h1>
 <div class="d-tags">${(t.tags || []).map((x) => `<span>${esc(x)}</span>`).join("")}<span>${esc(t.region)} district</span></div>
 </div></div>
@@ -267,10 +338,9 @@ function tripPage(t) {
     : `<p>${esc(t.summary)}</p><p class="story-empty">The full story from this trip is coming soon. The reels are already up on Instagram.</p>`}</div></section>
 ${media.length ? `<section><h2>Photos &amp; videos</h2><div class="gallery">${media.map((m) => m.kind === "video"
     ? `<div class="vid"><video src="${pre}${esc(m.src)}" controls playsinline preload="metadata" aria-label="${esc(m.caption || t.title + " video")}"></video></div>`
-    : `<a href="${pre}${esc(m.src)}" data-full><img src="${pre}${esc(m.src)}" alt="${esc(m.caption || t.title + " photo")}" loading="lazy"></a>`).join("")}</div></section>` : ""}
+    : `<a href="${pre}${V.get(m.src).jpg}" data-full>${pic(V.get(m.src), { alt: m.caption || t.title + " photo", sizes: "(max-width: 600px) 50vw, 260px", pre })}</a>`).join("")}</div></section>` : ""}
 ${(t.itinerary || []).length ? `<section><h2>Day-by-day itinerary</h2><p class="note">${ico("pin")}Starts and ends in Rishikesh. Getting to Rishikesh is on you. <a href="${pre}index.html#getting-there">How to reach</a></p><ol class="timeline">${t.itinerary.map((d) => `<li><span class="daybadge">${esc(d.d)}</span><div><h3>${esc(d.t)}</h3><p>${esc(d.x)}</p></div></li>`).join("")}</ol></section>` : ""}
 ${(t.tips || []).length ? `<section><h2>Tips before you go</h2><ul class="tips">${t.tips.map((x) => `<li>${ico("spark")}<span>${esc(x)}</span></li>`).join("")}</ul></section>` : ""}
-<section><h2>More trips</h2><div class="more grid">${more.map((x) => card(x, pre)).join("")}</div></section>
 </div>
 <aside class="d-side">
 <div class="panel"><h4>Trip facts</h4><dl class="kv">
@@ -281,10 +351,18 @@ ${(t.tips || []).length ? `<section><h2>Tips before you go</h2><ul class="tips">
 <div><dt>${ico("pin")}Meeting point</dt><dd>${esc(t.start || "Rishikesh")}</dd></div>
 <div><dt>${ico("cal")}Best time</dt><dd>${esc(t.season)}</dd></div>
 </dl></div>
+${t.months ? `<div class="panel"><h4>Month by month</h4>${monthStrip(t)}${seasonLegend}</div>` : ""}
+<div class="panel"><h4>Share this trip</h4><p>Send it to the friends you’re going with.</p>
+<div class="share-row">
+<a class="btn btn-soft" href="https://wa.me/?text=${encodeURIComponent(shareText)}" ${ext}>${ico("chat")}WhatsApp</a>
+<button class="btn btn-line" type="button" data-share="${esc(url)}" data-title="${esc(t.title)}" hidden>${ico("share")}Share</button>
+<button class="btn btn-line" type="button" data-copy="${esc(url)}" hidden>${ico("link")}Copy link</button>
+</div><p class="copy-msg" aria-live="polite"></p></div>
 <div class="panel"><h4>Going there?</h4><p>Follow me and DM your dates. I’ll share what worked for me.</p>
 ${t.reel ? `<a class="btn btn-line" href="${esc(t.reel)}" ${ext}>${ico("play")}Watch the reel</a>` : ""}
 <a class="btn btn-ig" href="${esc(site.instagram)}" ${ext}>${ico("ig")}Follow on Instagram</a></div>
 </aside></div>
+<section class="wrap more-trips"><h2>More trips</h2><div class="grid">${more.map((x) => card(x, pre)).join("")}</div></section>
 </main>
 ` + footer();
 }
@@ -300,24 +378,35 @@ function notFoundPage() {
 }
 
 /* ---------- build ---------- */
-function copyDir(src, dst) {
+function copyDir(src, dst, skip = () => false) {
   if (!fs.existsSync(src)) return;
   fs.mkdirSync(dst, { recursive: true });
   for (const e of fs.readdirSync(src, { withFileTypes: true })) {
     if (e.name.startsWith(".") && e.name !== ".well-known") continue;
     const s = path.join(src, e.name), d = path.join(dst, e.name);
-    e.isDirectory() ? copyDir(s, d) : fs.copyFileSync(s, d);
+    if (skip(s)) continue;
+    e.isDirectory() ? copyDir(s, d, skip) : fs.copyFileSync(s, d);
   }
 }
+const RASTER = /\.(jpe?g|png|webp|avif|gif|tiff?)$/i;
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 copyDir(path.join(ROOT, "assets"), path.join(OUT, "assets"));
-copyDir(path.join(ROOT, "images"), path.join(OUT, "images"));
+// Original photos are never published as-is; only the resized, metadata-free copies made below.
+copyDir(path.join(ROOT, "images"), path.join(OUT, "images"), (p) => RASTER.test(p) && path.basename(p) !== "og.jpg");
 copyDir(path.join(ROOT, "static"), OUT);
 
-for (const t of trips) await renderArt(t.id, t.style || "day", 1200, 750, `images/gen/${t.id}.jpg`);
-await renderArt("about-shivam", "dusk", 840, 1050, "images/gen/about.jpg");
-if (!fs.existsSync(path.join(ROOT, "images/hero.jpg"))) await renderArt("hero-uttarakhand", "dawn", 1800, 1000, "images/hero.jpg");
+const keyOf = (rel) => rel.replace(/^images\//, "").replace(/\.[^.]+$/, "").replace(/[^\w-]+/g, "-");
+for (const t of trips) {
+  V.set(`gen:${t.id}`, await makeVariants(await artBuffer(t.id, t.style || "day", 1200, 750), `gen-${t.id}`, [640, 1200]));
+  const photos = new Set([t.cover, ...(t.media || []).filter((m) => m.kind === "image").map((m) => m.src)].filter(Boolean));
+  for (const rel of photos) if (!V.has(rel)) V.set(rel, await makeVariants(path.join(ROOT, rel), keyOf(rel), [640, 1200, 1800]));
+}
+const heroSrc = path.join(ROOT, "images/hero.jpg");
+V.set("hero", await makeVariants(fs.existsSync(heroSrc) ? heroSrc : await artBuffer("hero-uttarakhand", "dawn", 1800, 1000), "hero", [900, 1800]));
+const aboutSrc = site.about?.photo ? path.join(ROOT, site.about.photo) : null;
+if (aboutSrc && !fs.existsSync(aboutSrc)) throw new Error(`Missing About photo: ${site.about.photo}`);
+V.set("about", await makeVariants(aboutSrc || await artBuffer("about-shivam", "dusk", 840, 1050), "about", [480, 840]));
 if (!fs.existsSync(path.join(ROOT, "images/og.jpg"))) {
   const ogSvg = mountainSvg("hero-uttarakhand", "dawn", 1200, 630).replace("</svg>",
     `<rect width="1200" height="630" fill="#06121c" fill-opacity=".45"/><text x="72" y="300" font-family="DejaVu Sans, Arial, sans-serif" font-size="68" font-weight="700" fill="#ffffff">${esc(site.title)}</text><text x="72" y="370" font-family="DejaVu Sans, Arial, sans-serif" font-size="32" fill="#e6f3f9">Uttarakhand itineraries · @${esc(site.handle)}</text></svg>`);

@@ -49,6 +49,52 @@
     }, 2600);
   }
 
+  // Season calendar: highlight this month and list the trips that are at their best now
+  var season = document.getElementById("season");
+  if (season) {
+    var m = new Date().getMonth();
+    $$('[data-m="' + m + '"]', season).forEach(function (c) { c.classList.add("cur"); });
+    var monthName = season.querySelectorAll("thead th")[m + 1].textContent;
+    var best = $$("tbody tr", season).filter(function (r) {
+      var cell = r.querySelector('td[data-m="' + m + '"]');
+      return cell && cell.getAttribute("data-s") === "b";
+    }).map(function (r) { return r.querySelector("th a"); });
+    var now = document.getElementById("now-good");
+    if (now && best.length) {
+      var label = document.createElement("b");
+      label.textContent = "Best in " + monthName + ":";
+      now.appendChild(label);
+      best.forEach(function (a, i) {
+        var link = document.createElement("a");
+        link.href = a.getAttribute("href");
+        link.textContent = a.textContent;
+        now.appendChild(link);
+        if (i < best.length - 1) now.appendChild(document.createTextNode("·"));
+      });
+      now.hidden = false;
+    }
+  }
+
+  // Share and copy-link buttons (trip pages)
+  var msg = document.querySelector(".copy-msg");
+  var say = function (text) { if (msg) { msg.textContent = text; setTimeout(function () { msg.textContent = ""; }, 2500); } };
+  $$("[data-share]").forEach(function (b) {
+    if (!navigator.share) return;
+    b.hidden = false;
+    b.addEventListener("click", function () {
+      navigator.share({ title: b.getAttribute("data-title"), url: b.getAttribute("data-share") }).catch(function () {});
+    });
+  });
+  $$("[data-copy]").forEach(function (b) {
+    if (!navigator.clipboard) return;
+    b.hidden = false;
+    b.addEventListener("click", function () {
+      navigator.clipboard.writeText(b.getAttribute("data-copy"))
+        .then(function () { say("Link copied."); })
+        .catch(function () { say("Couldn’t copy. Copy the address from your browser instead."); });
+    });
+  });
+
   // Photo lightbox (trip pages)
   $$(".gallery a[data-full]").forEach(function (a) {
     a.addEventListener("click", function (e) {
